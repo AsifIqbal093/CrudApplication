@@ -1,0 +1,41 @@
+{% extends "student_registeration/base.html" %}
+
+
+{% block content %}
+    <table class="table table-borderless">
+        <thead class="border-bottom font-weight">
+            <tr>
+                <td>Student Name</td>
+                <td>Father NAme</td>
+                <td>Phone</td>
+                <td>Program</td>
+                <td>                   
+                    <a href="{% url 'student_insert' %}" class="btn btn-outline-success font-awesome">
+                        <i class="fas fa-user-plus">Add</i>    
+                    </a>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            {%for student in student_list%}
+            <tr>
+                <td>{{student.std_name}}</td>
+                <td>{{student.std_fname}}</td>
+                <td>{{student.std_phone}}</td>
+                <td>{{student.std_program}}</td>
+                <td>
+                    <a href="{% url 'student_update' student.id %}" class="btn text-secondary px-0 d-inline" >
+                        <i class="far fa-edit fa-lg"></i>
+                    </a>
+                    <form action="{% url 'student_delete' student.id %}" method="POST" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content%}
